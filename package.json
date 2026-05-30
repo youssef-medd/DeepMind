@@ -1,0 +1,21 @@
+{
+  "name": "mindpilot",
+  "version": "0.1.0",
+  "description": "A personal life operating system built on a 3-tier multi-agent architecture (TypeScript).",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "start": "node --loader ts-node/esm src/orchestrator.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@langchain/core": "^0.3.0",
+    "@langchain/langgraph": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.0"
+  }
+}
