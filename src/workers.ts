@@ -26,6 +26,12 @@ interface SpendingTx {
   amount: number;
 }
 
+interface FocusSession {
+  date: string;
+  durationMinutes: number;
+  interruptions: number;
+}
+
 function fetchSleepData(): SleepNight[] {
   return [
     { date: "2026-05-27", inBedHours: 7.5, asleepHours: 5.1 },
@@ -73,6 +79,18 @@ function fetchSpendingData(): SpendingTx[] {
     { date: "2026-06-01", hour: 23, category: "shopping", amount: 88 },
     { date: "2026-06-02", hour: 12, category: "groceries", amount: 47 },
     { date: "2026-06-02", hour: 22, category: "food_delivery", amount: 36 },
+  ];
+}
+
+function fetchFocusData(): FocusSession[] {
+  return [
+    { date: "2026-05-27", durationMinutes: 95, interruptions: 2 },
+    { date: "2026-05-28", durationMinutes: 40, interruptions: 6 },
+    { date: "2026-05-29", durationMinutes: 110, interruptions: 1 },
+    { date: "2026-05-30", durationMinutes: 0, interruptions: 0 },
+    { date: "2026-05-31", durationMinutes: 0, interruptions: 0 },
+    { date: "2026-06-01", durationMinutes: 25, interruptions: 8 },
+    { date: "2026-06-02", durationMinutes: 35, interruptions: 7 },
   ];
 }
 
@@ -174,6 +192,28 @@ export function spendingAnalyst(_state: MindPilotStateType): MindPilotStateUpdat
       zScores,
       stressSessions,
       transactions: txs.length,
+    },
+  };
+}
+
+export function focusTracker(_state: MindPilotStateType): MindPilotStateUpdate {
+  const sessions = fetchFocusData();
+  const workSessions = sessions.filter((s) => s.durationMinutes > 0);
+  const avgDeepWorkMinutes = mean(workSessions.map((s) => s.durationMinutes));
+  const totalInterruptions = sessions.reduce((acc, s) => acc + s.interruptions, 0);
+  const fragmentationScore =
+    workSessions.length === 0
+      ? 0
+      : mean(workSessions.map((s) => s.interruptions / Math.max(1, s.durationMinutes / 30)));
+  const lowFocusDays = workSessions.filter((s) => s.durationMinutes < 45).length;
+
+  return {
+    focus: {
+      avgDeepWorkMinutes: Math.round(avgDeepWorkMinutes),
+      fragmentationScore: Number(fragmentationScore.toFixed(2)),
+      totalInterruptions,
+      lowFocusDays,
+      sessions: workSessions.length,
     },
   };
 }

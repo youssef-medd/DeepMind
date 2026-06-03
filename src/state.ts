@@ -35,6 +35,7 @@ export const MindPilotState = Annotation.Root({
   activity: Annotation<Record<string, unknown> | undefined>(),
   calendar: Annotation<Record<string, unknown> | undefined>(),
   spending: Annotation<Record<string, unknown> | undefined>(),
+  focus: Annotation<Record<string, unknown> | undefined>(),
 
   domainReports: Annotation<DomainReport[]>({
     reducer: appendList,
