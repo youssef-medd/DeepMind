@@ -1,0 +1,197 @@
+================================================================================
+                        MINDPILOT — PROJECT ROADMAP
+              Personal Life Operating System (Multi-Agent AI)
+================================================================================
+
+TECH STACK: TypeScript, LangGraph, LangChain Core
+ARCHITECTURE: 3-Tier Multi-Agent (Orchestrator → Supervisors → Workers)
+
+================================================================================
+ WHAT YOU'RE BUILDING
+================================================================================
+
+A system where you ask a natural-language question like "How was my week?" and
+specialized AI agents fan out across your health, productivity, and finance
+data, find cross-domain patterns, and respond with insight + actions.
+
+================================================================================
+ CURRENT PROGRESS                                              [████░░░░░░] ~40%
+================================================================================
+
+ [DONE] Project skeleton (package.json, tsconfig, .gitignore)
+ [DONE] Shared graph state (src/state.ts) — types + annotations
+ [DONE] Tier 2 Workers (src/workers.ts) — all 5 with mock data
+        - sleepAnalyst        (sleep efficiency, debt, anomalies)
+        - activityTracker     (steps, active minutes, sedentary days)
+        - calendarAnalyst     (meeting load score, evening meetings)
+        - spendingAnalyst     (category totals, z-scores, stress sessions)
+        - focusTracker        (deep work, fragmentation, interruptions)
+ [DONE] Tier 1 Supervisors (src/supervisors.ts)
+        - healthSupervisor, productivitySupervisor, financeSupervisor, insightSupervisor
+ [DONE] Tier 0 Orchestrator (src/orchestrator.ts)
+        - orchestratorPlan (keyword routing), orchestratorSynthesize (template)
+ [DONE] LangGraph graph wiring (buildGraph in src/orchestrator.ts)
+        - parallel fan-out workers, fan-in to supervisors, END-to-END runnable
+
+ [TODO] Real API integrations
+ [TODO] LLM-powered routing + synthesis
+ [TODO] Frontend / API layer
+
+================================================================================
+ PHASE 1 — CORE GRAPH (No LLM needed)                         ✅ COMPLETE
+================================================================================
+
+ Step  | Task                          | File                | What to Learn
+-------|-------------------------------|---------------------|-------------------------
+ 1.1   | ✅ Define shared state         | src/state.ts        | LangGraph Annotation,
+       |    (types, reducers)          |                     | TypedDict, reducers
+-------|-------------------------------|---------------------|-------------------------
+ 1.2   | ✅ Build Tier 2 workers        | src/workers.ts      | Pure functions, mock
+       |    (4 analyst agents)         |                     | data, basic stats
+-------|-------------------------------|---------------------|-------------------------
+ 1.3   | ✅ Build Tier 1 supervisors    | src/supervisors.ts  | Domain aggregation,
+       |  - healthSupervisor           |                     | compound scoring,
+       |  - productivitySupervisor     |                     | cross-metric penalties,
+       |  - financeSupervisor          |                     | confidence scoring
+       |  - insightSupervisor          |                     |
+-------|-------------------------------|---------------------|-------------------------
+ 1.4   | ✅ Build Tier 0 orchestrator  | src/orchestrator.ts | Intent routing (keyword
+       |  - orchestratorPlan           |                     | matching first), query
+       |  - orchestratorSynthesize     |                     | classification, action
+       |    (template-based first)     |                     | safety (auto vs manual)
+-------|-------------------------------|---------------------|-------------------------
+ 1.5   | ✅ Wire the LangGraph graph    | src/orchestrator.ts | StateGraph, add_edge,
+       |  - add_conditional_edges      |                     | conditional edges,
+       |  - fan-out workers in parallel|                     | parallel fan-out/fan-in,
+       |  - fan-in to supervisors      |                     | graph compilation
+       |  - insight waits for all      |                     |
+-------|-------------------------------|---------------------|-------------------------
+ 1.6   | ✅ Run & test end-to-end      | (terminal)          | Graph invocation,
+       |  - "How was my week?"         |                     | debugging agent traces,
+       |  - "How is my sleep?"         |                     | verifying state flow
+       |  - "Am I overloaded?"         |                     |
+
+ SKILLS TO LEARN FOR PHASE 1:
+   • LangGraph (StateGraph, Annotation, edges, conditional routing)
+   • TypeScript generics & type narrowing
+   • Basic statistics (mean, z-score, standard deviation)
+
+================================================================================
+ PHASE 2 — ADD LLM INTELLIGENCE
+================================================================================
+
+ Step  | Task                          | File                | What to Learn
+-------|-------------------------------|---------------------|-------------------------
+ 2.1   | Replace keyword routing with  | src/orchestrator.ts | LangChain ChatModel,
+       | LLM intent classification     |                     | structured output,
+       |                               |                     | prompt engineering
+-------|-------------------------------|---------------------|-------------------------
+ 2.2   | Replace template synthesis    | src/orchestrator.ts | Few-shot prompting,
+       | with LLM response generation  |                     | context windowing,
+       |                               |                     | output formatting
+-------|-------------------------------|---------------------|-------------------------
+ 2.3   | Add LLM to supervisors for    | src/supervisors.ts  | Chain-of-thought for
+       | richer pattern explanation     |                     | data interpretation
+
+ SKILLS TO LEARN FOR PHASE 2:
+   • LangChain Core (ChatOpenAI or ChatAnthropic binding)
+   • Prompt engineering (system prompts, structured output)
+   • API key management (.env, dotenv)
+
+================================================================================
+ PHASE 3 — REAL DATA SOURCES
+================================================================================
+
+ Step  | Task                          | API                 | What to Learn
+-------|-------------------------------|---------------------|-------------------------
+ 3.1   | Sleep + Activity data         | Apple HealthKit     | REST APIs, OAuth,
+       |                               | or Oura Ring API    | data normalization
+-------|-------------------------------|---------------------|-------------------------
+ 3.2   | Calendar data                 | Google Calendar API | Google OAuth 2.0,
+       |                               | (or MCP server)     | MCP protocol
+-------|-------------------------------|---------------------|-------------------------
+ 3.3   | Spending data                 | Plaid API           | Plaid Link, token
+       |                               |                     | exchange, webhooks
+
+ SKILLS TO LEARN FOR PHASE 3:
+   • OAuth 2.0 flows
+   • REST API consumption in TypeScript (fetch / axios)
+   • Environment variables & secrets management
+   • Data normalization & validation (zod)
+
+================================================================================
+ PHASE 4 — MEMORY & NEW AGENTS
+================================================================================
+
+ Step  | Task                          | What to Learn
+-------|-------------------------------|---------------------------------------------
+ 4.1   | Add memory agent with         | PostgreSQL, pgvector, embedding models,
+       | pgvector for episodic memory  | vector similarity search, RAG pattern
+-------|-------------------------------|---------------------------------------------
+ 4.2   | Add budget_tracker worker     | Budget algorithms, threshold alerts
+-------|-------------------------------|---------------------------------------------
+ 4.3   | Add focus_tracker worker      | Screen time APIs, focus scoring
+-------|-------------------------------|---------------------------------------------
+ 4.4   | Add comms_monitor worker      | Email/Slack APIs, communication load
+
+================================================================================
+ PHASE 5 — PROACTIVE ALERTS
+================================================================================
+
+ Step  | Task                          | What to Learn
+-------|-------------------------------|---------------------------------------------
+ 5.1   | Cron-based pipeline           | node-cron or system cron, background jobs
+       | (run graph on schedule)       |
+-------|-------------------------------|---------------------------------------------
+ 5.2   | Pattern matching + alerting   | Notification APIs (push, email, SMS)
+-------|-------------------------------|---------------------------------------------
+ 5.3   | Alert gating (don't spam)     | Rate limiting, cooldown logic,
+       |                               | severity thresholds
+
+================================================================================
+ PHASE 6 — USER INTERFACE
+================================================================================
+
+ Step  | Task                          | What to Learn
+-------|-------------------------------|---------------------------------------------
+ 6.1   | FastAPI REST wrapper          | FastAPI, Pydantic, async endpoints
+       | (or Express if staying TS)    | (or Express, Zod, middleware)
+-------|-------------------------------|---------------------------------------------
+ 6.2   | Streamlit dashboard           | Streamlit (Python) or
+       | (or React/Next.js frontend)   | React + Next.js + Tailwind CSS
+-------|-------------------------------|---------------------------------------------
+ 6.3   | Voice input via Whisper       | Whisper API, audio recording,
+       |                               | speech-to-text pipeline
+
+================================================================================
+ LEARNING PRIORITY (ordered by when you'll need it)
+================================================================================
+
+ NOW:
+   1. LangGraph docs       → https://langchain-ai.github.io/langgraphjs/
+   2. TypeScript basics     → generics, interfaces, type narrowing
+   3. Basic statistics      → mean, std deviation, z-score
+
+ SOON (Phase 2):
+   4. LangChain Core       → ChatModel, structured output
+   5. Prompt engineering    → system prompts, few-shot examples
+
+ LATER (Phase 3+):
+   6. OAuth 2.0            → Google, Apple auth flows
+   7. REST API design      → Express or FastAPI
+   8. PostgreSQL + pgvector → vector DB for memory
+   9. React or Streamlit   → dashboard UI
+
+================================================================================
+ NEXT IMMEDIATE STEP
+================================================================================
+
+ Build src/supervisors.ts with these 4 functions:
+   - healthSupervisor()       reads state.sleep + state.activity
+   - productivitySupervisor() reads state.calendar
+   - financeSupervisor()      reads state.spending
+   - insightSupervisor()      reads all domain reports, finds cross-patterns
+
+ Each supervisor returns { domainReports: [report] } to append via reducer.
+
+================================================================================
