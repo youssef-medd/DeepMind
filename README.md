@@ -162,8 +162,8 @@ langchain-core
 ### Install
 
 ```bash
-git clone https://github.com/your-username/mindpilot
-cd mindpilot
+git clone https://github.com/youssef-medd/DeepMind
+cd DeepMind
 pip install langgraph langchain-core
 ```
 
