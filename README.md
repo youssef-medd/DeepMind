@@ -6,6 +6,20 @@ A personal life operating system built on a 3-tier multi-agent architecture. Min
 
 ---
 
+## Table of contents
+
+- [What it does](#what-it-does)
+- [Architecture](#architecture)
+- [File structure](#file-structure)
+- [Quickstart](#quickstart)
+- [Swapping mocks for real APIs](#swapping-mocks-for-real-apis)
+- [Key LangGraph patterns used](#key-langgraph-patterns-used)
+- [Roadmap](#roadmap)
+- [Why this architecture matters](#why-this-architecture-matters)
+- [License](#license)
+
+---
+
 ## What it does
 
 You ask a natural language question. MindPilot fans out to specialized agents across every domain of your life, finds patterns no single app could detect, and responds with both insight and action.
@@ -255,7 +269,7 @@ return {"domain_reports": [report]}   # appends, never overwrites
 - [ ] Replace keyword routing with LLM-based intent classification
 - [ ] Replace template synthesis with LLM response generation
 - [ ] Add `memory_agent` with pgvector for long-term episodic memory and 30-day pattern correlation
-- [ ] Add `budget_tracker`, `focus_tracker`, `comms_monitor` workers
+- [ ] Add `budget_tracker` and `comms_monitor` workers (`focus_tracker` shipped)
 - [ ] Add proactive alert pipeline (cron + pattern matching + alert gating)
 - [ ] Add voice input via Whisper
 - [ ] FastAPI REST wrapper
