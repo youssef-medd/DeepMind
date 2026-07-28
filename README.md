@@ -1,5 +1,10 @@
 # MindPilot
 
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)
+![LangGraph](https://img.shields.io/badge/built%20with-LangGraph-8A2BE2.svg)
+![Status: WIP](https://img.shields.io/badge/status-WIP-orange.svg)
+
 A personal life operating system built on a 3-tier multi-agent architecture. MindPilot connects your health, productivity, and finance data into a single intelligent layer that detects cross-domain patterns, warns you early, and takes action on your behalf.
 
 > "You sleep worse when you overspend. Your spending spikes after heavy meeting days. No single app can see that — MindPilot can."
