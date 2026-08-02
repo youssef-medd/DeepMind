@@ -186,12 +186,13 @@ data, find cross-domain patterns, and respond with insight + actions.
  NEXT IMMEDIATE STEP
 ================================================================================
 
- Build src/supervisors.ts with these 4 functions:
-   - healthSupervisor()       reads state.sleep + state.activity
-   - productivitySupervisor() reads state.calendar
-   - financeSupervisor()      reads state.spending
-   - insightSupervisor()      reads all domain reports, finds cross-patterns
+ Phase 1 core graph complete. Move to Phase 2 — swap keyword routing in
+ src/orchestrator.ts (orchestratorPlan) for LLM-based intent classification
+ with structured output, then swap template synthesis in orchestratorSynthesize
+ for LLM response generation.
 
- Each supervisor returns { domainReports: [report] } to append via reducer.
+ Backend API layer for Phase 6 will use FastAPI (Python) — the TypeScript
+ graph will be wrapped via a subprocess or ported alongside a Python
+ langgraph rewrite when the LLM layer lands.
 
 ================================================================================
