@@ -165,11 +165,18 @@ export function spendingAnalyst(_state: MindPilotStateType): MindPilotStateUpdat
     byCategory.set(tx.category, list);
   }
 
-  const zScores: Record<string, number> = {};
+  const totalsByCategory: Record<string, number> = {};
   for (const [category, amounts] of byCategory) {
-    const mu = mean(amounts);
-    const sigma = stddev(amounts);
-    zScores[category] = sigma === 0 ? 0 : Number(((mu - mu) / sigma).toFixed(2));
+    totalsByCategory[category] = amounts.reduce((a, b) => a + b, 0);
+  }
+
+  const categoryTotals = Object.values(totalsByCategory);
+  const globalMu = mean(categoryTotals);
+  const globalSigma = stddev(categoryTotals);
+  const zScores: Record<string, number> = {};
+  for (const [category, total] of Object.entries(totalsByCategory)) {
+    zScores[category] =
+      globalSigma === 0 ? 0 : Number(((total - globalMu) / globalSigma).toFixed(2));
   }
 
   const sessions = new Map<string, SpendingTx[]>();
@@ -180,11 +187,6 @@ export function spendingAnalyst(_state: MindPilotStateType): MindPilotStateUpdat
     sessions.set(tx.date, list);
   }
   const stressSessions = [...sessions.values()].filter((s) => s.length >= 3).length;
-
-  const totalsByCategory: Record<string, number> = {};
-  for (const [category, amounts] of byCategory) {
-    totalsByCategory[category] = amounts.reduce((a, b) => a + b, 0);
-  }
 
   return {
     spending: {
