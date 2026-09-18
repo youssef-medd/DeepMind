@@ -28,6 +28,7 @@ function appendList<T>(existing: T[], incoming: T[]): T[] {
 
 export const MindPilotState = Annotation.Root({
   query: Annotation<string>(),
+  timestamp: Annotation<string>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 

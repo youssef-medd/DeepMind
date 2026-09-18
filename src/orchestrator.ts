@@ -21,7 +21,7 @@ export function orchestratorPlan(state: MindPilotStateType): MindPilotStateUpdat
     domains.add("finance");
   }
 
-  return { supervisorsNeeded: [...domains] };
+  return { supervisorsNeeded: [...domains], timestamp: new Date().toISOString() };
 }
 
 export function orchestratorSynthesize(state: MindPilotStateType): MindPilotStateUpdate {
