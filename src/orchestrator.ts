@@ -3,22 +3,29 @@ import { MindPilotState, type MindPilotStateType, type MindPilotStateUpdate, typ
 import { sleepAnalyst, activityTracker, calendarAnalyst, spendingAnalyst, focusTracker } from "./workers.js";
 import { healthSupervisor, productivitySupervisor, financeSupervisor, insightSupervisor } from "./supervisors.js";
 
-const HEALTH_KEYWORDS = ["sleep", "tired", "rest", "insomnia", "energy", "steps", "exercise", "active", "fitness", "workout", "health", "body"];
-const PRODUCTIVITY_KEYWORDS = ["meeting", "calendar", "schedule", "work", "overloaded", "busy", "focus", "deep work", "distracted", "productive", "productivity", "task"];
-const FINANCE_KEYWORDS = ["spend", "spending", "money", "budget", "finance", "financial", "cost", "transaction", "buy", "purchase", "saving"];
+const HEALTH_KEYWORDS = ["sleep", "tired", "rest", "insomnia", "energy", "steps", "exercise", "active", "fitness", "workout", "health", "body", "recovery", "heart rate", "hrv", "weight"];
+const PRODUCTIVITY_KEYWORDS = ["meeting", "calendar", "schedule", "work", "overloaded", "busy", "focus", "deep work", "distracted", "productive", "productivity", "task", "deadline", "blocked", "flow"];
+const FINANCE_KEYWORDS = ["spend", "spending", "money", "budget", "finance", "financial", "cost", "transaction", "buy", "purchase", "saving", "expense", "income", "cash", "bill"];
+const GENERAL_KEYWORDS = ["week", "month", "day", "overall", "everything", "summary", "overview", "how am i", "how was", "check in", "status"];
 
 export function orchestratorPlan(state: MindPilotStateType): MindPilotStateUpdate {
   const q = state.query.toLowerCase();
   const domains = new Set<Domain>();
 
-  if (HEALTH_KEYWORDS.some((k) => q.includes(k))) domains.add("health");
-  if (PRODUCTIVITY_KEYWORDS.some((k) => q.includes(k))) domains.add("productivity");
-  if (FINANCE_KEYWORDS.some((k) => q.includes(k))) domains.add("finance");
-
-  if (domains.size === 0) {
+  if (GENERAL_KEYWORDS.some((k) => q.includes(k))) {
     domains.add("health");
     domains.add("productivity");
     domains.add("finance");
+  } else {
+    if (HEALTH_KEYWORDS.some((k) => q.includes(k))) domains.add("health");
+    if (PRODUCTIVITY_KEYWORDS.some((k) => q.includes(k))) domains.add("productivity");
+    if (FINANCE_KEYWORDS.some((k) => q.includes(k))) domains.add("finance");
+
+    if (domains.size === 0) {
+      domains.add("health");
+      domains.add("productivity");
+      domains.add("finance");
+    }
   }
 
   return { supervisorsNeeded: [...domains], timestamp: new Date().toISOString() };
