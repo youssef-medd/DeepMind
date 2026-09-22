@@ -28,7 +28,11 @@ export function orchestratorPlan(state: MindPilotStateType): MindPilotStateUpdat
     }
   }
 
-  return { supervisorsNeeded: [...domains], timestamp: new Date().toISOString() };
+  return {
+    supervisorsNeeded: [...domains],
+    timestamp: new Date().toISOString(),
+    sessionId: state.sessionId ?? crypto.randomUUID(),
+  };
 }
 
 export function orchestratorSynthesize(state: MindPilotStateType): MindPilotStateUpdate {

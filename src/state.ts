@@ -30,6 +30,7 @@ export const MindPilotState = Annotation.Root({
   query: Annotation<string>(),
   timestamp: Annotation<string>(),
   userId: Annotation<string | undefined>(),
+  sessionId: Annotation<string | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
