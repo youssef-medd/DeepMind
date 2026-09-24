@@ -32,6 +32,7 @@ export const MindPilotState = Annotation.Root({
   userId: Annotation<string | undefined>(),
   sessionId: Annotation<string | undefined>(),
   timezone: Annotation<string | undefined>(),
+  locale: Annotation<string | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
