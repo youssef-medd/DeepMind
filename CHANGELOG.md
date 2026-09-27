@@ -7,6 +7,7 @@ All notable changes to MindPilot will be documented here.
 - Add `sessionId` field to state — generated at plan time via `crypto.randomUUID()` if not provided; enables per-run tracing and future session-scoped memory
 - Add `timezone` field to state — IANA timezone string (e.g. `"Africa/Cairo"`); used by sleep/calendar/activity workers for time-aware analysis
 - Add `locale` field to state — BCP 47 locale string (e.g. `"ar-EG"`); used for response formatting, currency display, and date localization
+- Add `currency` field to state — ISO 4217 currency code (e.g. `"EGP"`); used by spending worker for normalized financial reporting
 
 ## [0.1.0] - 2026-09-21
 - Phase 1 core graph complete (state, workers, supervisors, orchestrator, LangGraph wiring)
