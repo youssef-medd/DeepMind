@@ -8,6 +8,7 @@ All notable changes to MindPilot will be documented here.
 - Add `timezone` field to state — IANA timezone string (e.g. `"Africa/Cairo"`); used by sleep/calendar/activity workers for time-aware analysis
 - Add `locale` field to state — BCP 47 locale string (e.g. `"ar-EG"`); used for response formatting, currency display, and date localization
 - Add `currency` field to state — ISO 4217 currency code (e.g. `"EGP"`); used by spending worker for normalized financial reporting
+- Add `units` field to state — `"metric"` or `"imperial"`; used by health/activity workers for weight, distance, and temperature formatting
 
 ## [0.1.0] - 2026-09-21
 - Phase 1 core graph complete (state, workers, supervisors, orchestrator, LangGraph wiring)

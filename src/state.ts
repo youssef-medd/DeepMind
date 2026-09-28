@@ -34,6 +34,7 @@ export const MindPilotState = Annotation.Root({
   timezone: Annotation<string | undefined>(),
   locale: Annotation<string | undefined>(),
   currency: Annotation<string | undefined>(),
+  units: Annotation<"metric" | "imperial" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
