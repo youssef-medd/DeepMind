@@ -35,6 +35,7 @@ export const MindPilotState = Annotation.Root({
   locale: Annotation<string | undefined>(),
   currency: Annotation<string | undefined>(),
   units: Annotation<"metric" | "imperial" | undefined>(),
+  deviceType: Annotation<"mobile" | "desktop" | "tablet" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
