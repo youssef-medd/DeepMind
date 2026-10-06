@@ -40,6 +40,7 @@ export const MindPilotState = Annotation.Root({
   platform: Annotation<"ios" | "android" | "web" | undefined>(),
   userAgent: Annotation<string | undefined>(),
   screenResolution: Annotation<string | undefined>(),
+  networkType: Annotation<"wifi" | "cellular" | "ethernet" | "offline" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
