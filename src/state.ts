@@ -43,6 +43,7 @@ export const MindPilotState = Annotation.Root({
   networkType: Annotation<"wifi" | "cellular" | "ethernet" | "offline" | undefined>(),
   batteryLevel: Annotation<number | undefined>(),
   isCharging: Annotation<boolean | undefined>(),
+  orientation: Annotation<"portrait" | "landscape" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
