@@ -44,6 +44,7 @@ export const MindPilotState = Annotation.Root({
   batteryLevel: Annotation<number | undefined>(),
   isCharging: Annotation<boolean | undefined>(),
   orientation: Annotation<"portrait" | "landscape" | undefined>(),
+  locale: Annotation<string | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
