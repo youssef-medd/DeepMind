@@ -45,6 +45,7 @@ export const MindPilotState = Annotation.Root({
   isCharging: Annotation<boolean | undefined>(),
   orientation: Annotation<"portrait" | "landscape" | undefined>(),
   locale: Annotation<string | undefined>(),
+  theme: Annotation<"light" | "dark" | "system" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
