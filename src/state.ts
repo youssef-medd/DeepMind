@@ -46,6 +46,7 @@ export const MindPilotState = Annotation.Root({
   orientation: Annotation<"portrait" | "landscape" | undefined>(),
   locale: Annotation<string | undefined>(),
   theme: Annotation<"light" | "dark" | "system" | undefined>(),
+  fontSize: Annotation<"small" | "medium" | "large" | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
