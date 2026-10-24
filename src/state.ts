@@ -49,6 +49,7 @@ export const MindPilotState = Annotation.Root({
   fontSize: Annotation<"small" | "medium" | "large" | undefined>(),
   reducedMotion: Annotation<boolean | undefined>(),
   highContrast: Annotation<boolean | undefined>(),
+  screenReader: Annotation<boolean | undefined>(),
 
   supervisorsNeeded: Annotation<Domain[]>(),
 
